@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author Kristiyan SLavov
  */
-@Repository
-public interface UserAccountRepository extends MongoRepository<UserAccount, Long>{
 
+@Repository
+public interface UserAccountRepository extends MongoRepository<UserAccount, Long> {
 }

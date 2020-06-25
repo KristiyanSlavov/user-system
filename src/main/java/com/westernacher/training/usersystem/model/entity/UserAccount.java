@@ -3,7 +3,6 @@ package com.westernacher.training.usersystem.model.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.time.LocalDate;
 
 /**
