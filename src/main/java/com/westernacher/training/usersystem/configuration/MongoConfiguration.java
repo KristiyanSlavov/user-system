@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
  * @author Kristiyan SLavov
  */
 @Configuration
-public class AppConfig {
+public class MongoConfiguration {
 
     /*
      * Use the standard Mongo driver API to create a com.mongodb.client.MongoClient instance.
