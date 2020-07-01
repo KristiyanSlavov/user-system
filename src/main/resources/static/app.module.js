@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('userAccountApp', ['ngRoute','core','userAccountList','userAccountDetail']);
+angular.module('userAccountApp', ['ngRoute','core','userAccountList','userAccountDetail','userAccountNew']);

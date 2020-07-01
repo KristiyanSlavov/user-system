@@ -11,6 +11,9 @@ angular.
         when('/accounts/:id', {
           template: '<user-account-detail></user-account-detail>'
         }).
+        when('/account', {
+          template: '<user-account-new></user-account-new>'
+        }).
         otherwise('/accounts');
     }
   ]);

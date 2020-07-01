@@ -41,7 +41,7 @@ public class UserAccountController {
         return ResponseEntity.ok(userAccountService.getAll());
     }
 
-    @PostMapping(value = "/account", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserAccountDto> insert(@RequestBody UserAccountDto userAccountDto) {
         return ResponseEntity.ok(userAccountService.insert(userAccountDto));
     }

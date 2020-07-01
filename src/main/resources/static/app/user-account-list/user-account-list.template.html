@@ -1,32 +1,40 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
-            <!--Sidebar content-->
 
             <p>
-                Search:
-                <input ng-model="$ctrl.query" />
-            </p>
-
-            <p>
-                Sort by:
-                <select ng-model="$ctrl.orderProp">
-                    <option value="name">Alphabetical</option>
-                    <option value="age">Newest</option>
-                </select>
+                Search: <input ng-model="$ctrl.query" />
             </p>
 
         </div>
         <div class="col-md-10">
-            <!--Body content-->
-
-            <ul class="phones">
-                <li ng-repeat="acc in $ctrl.accounts | filter:$ctrl.query | orderBy:$ctrl.orderProp" class="thumbnail">
-                    <a href="#!/accounts/{{acc.id}}> {{acc.firstName}} </a>
-                    <p>{{acc.lastName}}</p>
-                </li>
-            </ul>
-
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Date of birth</th>
+                    <th style="width: 90px">
+                        <button class="btn btn-success" ng-click="$ctrl.createUserAccount()">Create</button>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="account in $ctrl.accounts | filter:$ctrl.query">
+                    <td>{{account.firstName}}</td>
+                    <td>{{account.lastName}}</td>
+                    <td>{{account.email}}</td>
+                    <td>{{account.dateOfBirth}}</td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="$ctrl.editUserAccount(account.id)">Edit</button>
+                    </td>
+                    <td>
+                    <button class="btn btn-danger" ng-click="$ctrl.delete(account)">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

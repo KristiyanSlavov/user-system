@@ -3,19 +3,21 @@
 angular.
   module('userAccountDetail').
   component('userAccountDetail', {
-    template:
-        '<div class="container-fluid">' +
-            '<div class="row">' +
-                '<div class="col-md-10">' +
-                    '<p> {{$ctrl.account.email}} </p>' +
-                    '<p> {{$ctrl.account.dateOfBirth}} </p>' +
-                '</div>' +
-            '</div>' +
-        '</div>',
-    controller: ['UserAccount', '$routeParams',
-      function UserAccountDetailController(UserAccount, $routeParams) {
+    templateUrl: 'app/user-account-detail/user-account-detail.template.html',
+    controller: ['UserAccount', '$routeParams', '$location',
+      function UserAccountDetailController(UserAccount, $routeParams, $location) {
             var self = this;
             self.account = UserAccount.get({id: $routeParams.id});
+
+            self.update = function() {
+                UserAccount.update(self.account);
+
+                console.log(self.account);
+            }
+
+            self.cancel = function() {
+                $location.path('/accounts');
+            }
       }
     ]
   });
