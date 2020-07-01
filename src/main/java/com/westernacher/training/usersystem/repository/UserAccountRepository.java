@@ -15,4 +15,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 @Repository
 public interface UserAccountRepository extends MongoRepository<UserAccount, Long> {
+    UserAccount findByEmail(String email);
 }

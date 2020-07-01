@@ -1,9 +1,11 @@
-package com.westernacher.training.usersystem.controller;
+package com.westernacher.training.usersystem.controller.useraccount;
 
 import com.westernacher.training.usersystem.model.dto.UserAccountDto;
+import com.westernacher.training.usersystem.model.exception.UserAccountDuplicateKeyException;
 import com.westernacher.training.usersystem.model.exception.UserAccountNotFoundException;
 import com.westernacher.training.usersystem.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,8 +44,8 @@ public class UserAccountController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserAccountDto> insert(@RequestBody UserAccountDto userAccountDto) {
-        return ResponseEntity.ok(userAccountService.insert(userAccountDto));
+    public ResponseEntity<UserAccountDto> insert(@RequestBody UserAccountDto userAccountDto) throws UserAccountDuplicateKeyException {
+        return new ResponseEntity<>(userAccountService.insert(userAccountDto), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,8 +55,7 @@ public class UserAccountController {
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity delete(@PathVariable Long id) {
-        userAccountService.delete(id);
-        return ResponseEntity.ok("The user account is deleted successfully");
+    public ResponseEntity<String> delete(@PathVariable Long id) throws UserAccountNotFoundException{
+        return ResponseEntity.ok(userAccountService.delete(id));
     }
 }

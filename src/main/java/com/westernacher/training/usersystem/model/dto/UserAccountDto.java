@@ -1,5 +1,7 @@
 package com.westernacher.training.usersystem.model.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 /**
@@ -13,13 +15,19 @@ public class UserAccountDto {
 
     private Long id;
 
+    @NotBlank(message = "The first name is required!")
     private String firstName;
 
+    @NotBlank(message = "The last name is required!")
     private String lastName;
 
+    @NotBlank(message = "The email is required!")
     private String email;
 
+    @NotBlank(message = "The date of birth is required!")
+    @PastOrPresent(message = "Must be a past or present date!")
     private LocalDate dateOfBirth;
+
 
     public Long getId() {
         return id;

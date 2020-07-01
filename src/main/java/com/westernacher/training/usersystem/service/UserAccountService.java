@@ -2,10 +2,13 @@ package com.westernacher.training.usersystem.service;
 
 import com.westernacher.training.usersystem.model.dto.UserAccountDto;
 import com.westernacher.training.usersystem.model.entity.UserAccount;
+import com.westernacher.training.usersystem.model.exception.UserAccountDuplicateKeyException;
 import com.westernacher.training.usersystem.model.exception.UserAccountNotFoundException;
 import com.westernacher.training.usersystem.repository.UserAccountRepository;
 import com.westernacher.training.usersystem.service.mapper.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +25,7 @@ public class UserAccountService {
     private ObjectMapper objectMapper;
 
     private static final String USER_ACCOUNT_NOT_FOUND_MSG = "User account is not found";
+    private static final String DUPLICATE_RECORDS_MSG = "Duplicate records";
 
     @Autowired
     public UserAccountService(UserAccountRepository userAccountRepository, ObjectMapper objectMapper) {
@@ -38,16 +42,17 @@ public class UserAccountService {
 
     public List<UserAccountDto> getAll() throws UserAccountNotFoundException {
         List<UserAccount> userAccountList = userAccountRepository.findAll();
-
         if (userAccountList.isEmpty()) {
             throw new UserAccountNotFoundException(USER_ACCOUNT_NOT_FOUND_MSG);
-        } else {
-            return objectMapper.mapAll(userAccountList, UserAccountDto.class);
         }
+        return objectMapper.mapAll(userAccountList, UserAccountDto.class);
     }
 
-    public UserAccountDto insert(UserAccountDto userAccountDto) {
+    public UserAccountDto insert(UserAccountDto userAccountDto) throws UserAccountDuplicateKeyException {
         UserAccount userAccount = objectMapper.map(userAccountDto, UserAccount.class);
+        if(userAccountRepository.findByEmail(userAccount.getEmail()) != null) {
+            throw new UserAccountDuplicateKeyException(DUPLICATE_RECORDS_MSG);
+        }
 
         return objectMapper.map(userAccountRepository.insert(userAccount), UserAccountDto.class);
     }
@@ -71,7 +76,12 @@ public class UserAccountService {
         return objectMapper.map(updatedUserAccount, UserAccountDto.class);
     }
 
-    public void delete(Long id) {
-        userAccountRepository.deleteById(id);
+    public String delete(Long id) throws UserAccountNotFoundException {
+        if (userAccountRepository.findById(id).isPresent()) {
+            userAccountRepository.deleteById(id);
+            return "User account is deleted successfully";
+        } else {
+            throw new UserAccountNotFoundException(USER_ACCOUNT_NOT_FOUND_MSG);
+        }
     }
 }
