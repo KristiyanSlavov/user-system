@@ -10,7 +10,9 @@ angular.
             self.account = UserAccount.get({id: $routeParams.id});
 
             self.update = function() {
-                UserAccount.update(self.account);
+                UserAccount.update(self.account).$promise.then(function(response) {
+                    console.log(response);
+                });
 
                 console.log(self.account);
             }

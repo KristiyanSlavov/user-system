@@ -55,7 +55,8 @@ public class UserAccountController {
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> delete(@PathVariable Long id) throws UserAccountNotFoundException{
-        return ResponseEntity.ok(userAccountService.delete(id));
+    public ResponseEntity<Object> delete(@PathVariable Long id) throws UserAccountNotFoundException{
+        userAccountService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

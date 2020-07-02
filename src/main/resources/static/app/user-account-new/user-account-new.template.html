@@ -1,38 +1,43 @@
 <div class="container">
     <h1>Create User Account</h1>
 
-    <form novalidate="novalidate" class="form-horizontal">
+    <form name="myForm" novalidate="novalidate" class="form-horizontal">
+        <div class="msg-error" ng-if="$ctrl.errorMessage">{{$ctrl.errorMessage + : а user with this email already exists}}</div>
         <div class="control-group">
             <label class="control-label" for="inputFirstName">First name:</label>
 
             <div class="controls">
-                <input type="text" id="inputFirstName" ng-model="$ctrl.account.firstName"/>
+                <input type="text" name="inputFirstName" id="inputFirstName" ng-model="$ctrl.account.firstName" ng-required="true" />
+                <span ng-if="!myForm.inputFirstName.$valid"> This field cannot be empty </span>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputLastName">Last name:</label>
 
             <div class="controls">
-                <input type="text" id="inputLastName" ng-model="$ctrl.account.lastName" />
+                <input type="email" name="inputLastName" id="inputLastName" ng-model="$ctrl.account.lastName" ng-required="true" />
+                <span ng-if="!myForm.inputLastName.$valid"> This field cannot be empty </span>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputEmail">Email:</label>
 
             <div class="controls">
-                <input type="text" id="inputEmail" ng-model="$ctrl.account.email" />
+                <input type="text" name="inputEmail" id="inputEmail" ng-model="$ctrl.account.email" ng-required="true" />
+                <span ng-if="!myForm.inputEmail.$valid"> This field cannot be empty </span>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="inputDateOfBirth">Date of birth:</label>
 
             <div class="controls">
-                <input type="text" id="inputDateOfBirth" ng-model="$ctrl.account.dateOfBirth" />
+                <input type="text" date='yyyy-MM-dd' name="inputDateOfBirth" id="inputDateOfBirth" ng-model="$ctrl.account.dateOfBirth" ng-required="true" />
+                <span ng-if="!myForm.inputDateOfBirth.$valid"> This field cannot be empty and should be in right date format-'yyyy-MM-dd' </span>
             </div>
         </div>
         <div class="input-group">
             <div class="controls">
-                <a ng-click="$ctrl.save()" class="btn btn-primary">Save</a>
+                <a ng-click="myForm.$valid && $ctrl.save()" class="btn btn-primary">Save</a>
                 <a ng-click="$ctrl.cancel()" class="btn btn-default .badge">Cancel</a>
             </div>
         </div>

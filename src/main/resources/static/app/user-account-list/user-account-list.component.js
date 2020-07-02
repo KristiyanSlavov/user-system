@@ -26,9 +26,13 @@ angular.
                     $location.path('/account');
                 }
 
-                self.delete = function(account) {
-                    account.$delete();
-                    getAll();
+                self.delete = function(id) {
+                    UserAccount.delete({id: id}, function(success) {
+                        console.log(success);
+                        getAll();
+                    }, function(error) {
+                        console.log(error);
+                    });
                 }
             }
         ]

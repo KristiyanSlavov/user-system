@@ -19,3 +19,11 @@ body {
   padding-bottom: 1em;
   width: 100px;
 }
+
+.msg-error {
+     color:red;
+     width:350px;
+     height:30px;
+     font-family:Verdana;
+     font-size:18px;
+ }

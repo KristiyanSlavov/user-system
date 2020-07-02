@@ -7,8 +7,6 @@ import com.westernacher.training.usersystem.model.exception.UserAccountNotFoundE
 import com.westernacher.training.usersystem.repository.UserAccountRepository;
 import com.westernacher.training.usersystem.service.mapper.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -76,10 +74,9 @@ public class UserAccountService {
         return objectMapper.map(updatedUserAccount, UserAccountDto.class);
     }
 
-    public String delete(Long id) throws UserAccountNotFoundException {
+    public void delete(Long id) throws UserAccountNotFoundException {
         if (userAccountRepository.findById(id).isPresent()) {
             userAccountRepository.deleteById(id);
-            return "User account is deleted successfully";
         } else {
             throw new UserAccountNotFoundException(USER_ACCOUNT_NOT_FOUND_MSG);
         }

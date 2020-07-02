@@ -8,10 +8,14 @@ angular.
       function UserAccountNewController(UserAccount,$routeParams,$location) {
             var self = this;
             self.account = {};
+            self.errorMessage = '';
+
 
             self.save = function() {
-                UserAccount.save(self.account).$promise.then(function(response) {
-                       console.log(response);
+                UserAccount.save(self.account, function(success){
+                    console.log(success);
+                }, function(error) {
+                    self.errorMessage = error.data.message;
                 });
             }
 

@@ -42,8 +42,8 @@ public class UserAccountExceptionHandler extends ResponseEntityExceptionHandler 
     public ResponseEntity<ErrorResponse> handleMoviesDuplicateKey(Exception ex) {
         ErrorResponse errors = new ErrorResponse(
                 ex.getMessage(),
-                HttpStatus.UNPROCESSABLE_ENTITY);
-        return new ResponseEntity<>(errors, HttpStatus.UNPROCESSABLE_ENTITY);
+                HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
 
     /**
