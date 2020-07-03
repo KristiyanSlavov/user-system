@@ -67,8 +67,7 @@ public class UserAccountService {
                     return userAccountRepository.save(account);
                 })
                 .orElseGet(() -> {
-                    userAccount.setId(id);
-                    return userAccountRepository.save(userAccount);
+                    return userAccountRepository.insert(userAccount);
                 });
 
         return objectMapper.map(updatedUserAccount, UserAccountDto.class);

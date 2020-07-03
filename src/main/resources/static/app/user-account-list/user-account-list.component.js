@@ -7,6 +7,7 @@ angular.
         controller:['UserAccount', '$location',
             function UserAccountListController(UserAccount, $location) {
                 var self = this;
+                self.errorMessage = '';
 
                 init();
 
@@ -15,7 +16,12 @@ angular.
                 }
 
                 function getAll() {
-                    self.accounts = UserAccount.query();
+//                    self.accounts = UserAccount.query();
+                      UserAccount.query({}, function(success) {
+                          self.accounts = success;
+                      }, function(error) {
+                          self.errorMessage = error.data.httpError;
+                      });
                 }
 
                 self.editUserAccount = function(id) {

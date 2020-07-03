@@ -4,16 +4,16 @@ angular.
   module('userAccountNew').
   component('userAccountNew', {
     templateUrl: 'app/user-account-new/user-account-new.template.html',
-    controller: ['UserAccount','$routeParams','$location',
-      function UserAccountNewController(UserAccount,$routeParams,$location) {
+    controller: ['UserAccount','$routeParams','$location','$filter',
+      function UserAccountNewController(UserAccount,$routeParams,$location,$filter) {
             var self = this;
             self.account = {};
             self.errorMessage = '';
 
 
-            self.save = function() {
+            self.create = function() {
                 UserAccount.save(self.account, function(success){
-                    console.log(success);
+                    self.cancel();
                 }, function(error) {
                     self.errorMessage = error.data.message;
                 });

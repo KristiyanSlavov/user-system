@@ -1,39 +1,48 @@
-<div class="container">
-    <h1>Edit User Account</h1>
-
-    <form novalidate="novalidate" class="form-horizontal">
-        <div class="control-group">
-            <label class="control-label" for="inputFirstName">First name:</label>
-
-            <div class="controls">
-                <input type="text" id="inputFirstName" ng-model="$ctrl.account.firstName"/>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="inputLastName">Last name:</label>
-
-            <div class="controls">
-                <input type="text" id="inputLastName" ng-model="$ctrl.account.lastName" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="inputEmail">Email:</label>
-
-            <div class="controls">
-                <input type="text" id="inputEmail" ng-model="$ctrl.account.email" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="inputDateOfBirth">Date of birth:</label>
-
-            <div class="controls">
-                <input type="text" id="inputDateOfBirth" ng-model="$ctrl.account.dateOfBirth" />
-            </div>
-        </div>
-        <div class="input-group">
-            <div class="controls">
-                <a ng-click="$ctrl.update()" class="btn btn-primary">Update</a>
-                <a ng-click="$ctrl.cancel()" class="btn btn-default .badge">Cancel</a>
+<div class="container-fluid">
+    <form name="myForm" novalidate="novalidate" class="form-horizontal">
+        <div class="msg-error" ng-if="$ctrl.errorMessage">{{$ctrl.errorMessage}} - There is already a user with this email</div>
+        <div class="row">
+            <div class="col-md-10">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Date of birth</th>
+                        <th style="width: 90px">
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="controls">
+                                <input type="text" name="inputFirstName" id="inputFirstName" ng-model="$ctrl.account.firstName" ng-required="true" />
+                                <p ng-if="!myForm.inputFirstName.$valid"> This field cannot be empty </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="controls">
+                                <input type="text" name="inputLastName" id="inputLastName" ng-model="$ctrl.account.lastName" ng-required="true" />
+                                <p ng-if="!myForm.inputLastName.$valid"> This field cannot be empty </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="controls">
+                                <input type="email" name="inputEmail" id="inputEmail" ng-model="$ctrl.account.email" ng-required="true" />
+                                <p ng-if="!myForm.inputEmail.$valid"> This field cannot be empty </p>
+                            </div>
+                        </td>
+                        <td>
+                            <a ng-click="myForm.$valid && $ctrl.update()" class="btn btn-primary">Update</a>
+                        </td>
+                        <td>
+                            <a ng-click="$ctrl.cancel()" class="btn btn-default .badge">Cancel</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </form>
